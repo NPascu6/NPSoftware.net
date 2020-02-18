@@ -5,7 +5,6 @@ import firebaseService from "../API/firebaseConfig";
 // create a generator function
 
 const signUpAsync = async (user) => {
-  debugger;
   let token = await firebaseService
     .auth()
     .createUserWithEmailAndPassword(user.email, user.password);

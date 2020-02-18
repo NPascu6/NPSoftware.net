@@ -8,13 +8,21 @@ import {
 } from "../Actions/authenticationActions";
 import { connect } from "react-redux";
 
-const signInPage = (props, {signInActionRequest}) => {
+const signInPage = props => {
+  console.log(props);
+  const sigIn = (email, password) => {
+    let user = {
+      Email: email,
+      Password: password
+    };
+    props.signInActionRequest({ payload: user });
+  };
   return (
     <>
       <div>{APPLICATION_NAME}</div>
       <AuthenticationFormComponent
         type={SIGN_IN_ACTION_REQUEST}
-        action={signInActionRequest}
+        action={sigIn}
       />
       <Link to="/">Sign up instead</Link>
     </>

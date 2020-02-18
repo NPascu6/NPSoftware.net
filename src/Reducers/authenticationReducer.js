@@ -7,23 +7,25 @@ import {
 
 const initialState = {
   loggedIn: false,
-  errorMessage: ""
+  errorMessage: "",
+  token: null
 };
 
 const authenticationReducer = (state = initialState, action) => {
-  debugger;
   switch (action.type) {
     case SIGN_IN_ACTION_SUCCESS:
-      console.log(action.payload);
+      console.log(action.payload.user.refreshToken);
       return {
         ...state,
-        loggedIn: true
+        loggedIn: true,
+        token: action.payload.user.refreshToken
       };
     case SIGN_UP_ACTION_SUCCESS:
-      console.log(action.payload);
+      console.log(action.payload.user.refreshToken);
       return {
         ...state,
-        loggedIn: true
+        loggedIn: true,
+        token: action.payload.user.refreshToken
       };
     case SIGN_IN_ACTION_FAILED:
       return {

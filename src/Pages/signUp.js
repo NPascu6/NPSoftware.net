@@ -8,10 +8,9 @@ import {
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 
-const signUpPage = (props) => {
-  console.log(props)
+const signUpPage = props => {
+  console.log(props);
   const signUp = (email, password) => {
-    debugger;
     let user = {
       Email: email,
       Password: password
