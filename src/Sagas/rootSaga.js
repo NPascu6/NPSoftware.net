@@ -1,11 +1,9 @@
 // Imports: Dependencies
-import { all, fork} from 'redux-saga/effects';
+import { all } from "redux-saga/effects";
+
 // Imports: Redux Sagas
-import { watchSignUp, watchSignIn } from '../Sagas/authenticationSaga';
+import authenticationSaga from "./authenticationSagas";
 // Redux Saga: Root Saga
-export function* rootSaga () {
-  yield all([
-    fork(watchSignUp),
-    fork(watchSignIn),
-  ]);
-};
+export function* rootSaga() {
+  yield all([...authenticationSaga]);
+}
