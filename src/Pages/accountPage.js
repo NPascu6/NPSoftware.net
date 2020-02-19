@@ -1,14 +1,32 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import LogOutButton from "../Components/logoutButton";
+import { setTokenActionRequest } from "../Actions/authenticationActions";
 
 const AccountPage = props => {
-  useEffect(() => {
-    if (props.token !== null) {
-      localStorage.setItem("token", props.token);
-    }
-  }, [props, props.token]);
+  const history = useHistory();
 
-  return <>{localStorage.token && <div>Account Page</div>}</>;
+  useEffect(() => {
+    debugger;
+    let token = localStorage.getItem("token");
+    if (token !== null && props.token === null) {
+      props.setTokenActionRequest(token);
+    } else if (token === null && props.token !== null) {
+      localStorage.setItem("token", props.token);
+    } else if (token !== null && props.token !== null) {
+      return;
+    } else {
+      history.push("/");
+    }
+  }, [history, props, props.token]);
+
+  return (
+    <>
+      {props.token && <div>Account Page</div>}
+      <LogOutButton />
+    </>
+  );
 };
 
 const mapStateToProps = state => {
@@ -17,4 +35,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AccountPage);
+export default connect(mapStateToProps, { setTokenActionRequest })(AccountPage);

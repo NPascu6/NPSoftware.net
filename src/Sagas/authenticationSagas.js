@@ -2,21 +2,27 @@ import { takeEvery, fork, put, call } from "redux-saga/effects";
 import * as actions from "../Actions/authenticationActions";
 import firebaseService from "../API/firebaseConfig";
 
-// create a generator function
-
-const signUpAsync = async (user) => {
+const signUpAsync = async user => {
   let token = await firebaseService
     .auth()
     .createUserWithEmailAndPassword(user.email, user.password);
   return token;
 };
 
-const signInAsync = async (user) => {
+const signInAsync = async user => {
   let token = await firebaseService
     .auth()
     .signInWithEmailAndPassword(user.email, user.password);
   return token;
 };
+
+function* setToken(token) {
+  yield put({ type: actions.SET_TOKEN, payload: token });
+}
+
+function* logout() {
+  yield put({ type: actions.LOG_OUT_ACTION_SUCCESS });
+}
 
 function* signin(action) {
   try {
@@ -43,15 +49,27 @@ function* signup(action) {
     yield put({ type: actions.SIGN_IN_ACTION_FAILED, payload: e.message });
   }
 }
+
 function* watchSignin() {
-  // create watcher of fetchData function
   yield takeEvery(actions.SIGN_IN_ACTION_REQUEST, signin);
 }
 function* watchSignup() {
-  // create watcher of fetchData function
   yield takeEvery(actions.SIGN_UP_ACTION_REQUEST, signup);
 }
 
-const authenticationSaga = [fork(watchSignin), fork(watchSignup)];
+function* watchLogout() {
+  yield takeEvery(actions.LOG_OUT_ACTION_REQUEST, logout);
+}
+
+function* watchSettoken() {
+  yield takeEvery(actions.SET_TOKEN_REQUEST, setToken);
+}
+
+const authenticationSaga = [
+  fork(watchSignin),
+  fork(watchSignup),
+  fork(watchLogout),
+  fork(watchSettoken)
+];
 
 export default authenticationSaga;
