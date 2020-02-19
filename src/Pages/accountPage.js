@@ -23,7 +23,8 @@ const AccountPage = props => {
 
   return (
     <>
-      {props.token && <div>Account Page</div>}
+      <div>Account Page</div>
+      <div>Coming soon</div>
       <LogOutButton />
     </>
   );
