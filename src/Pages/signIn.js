@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import AuthenticationFormComponent from "../Components/authenticationForm";
-import { Link } from "react-router-dom";
-import { APPLICATION_NAME } from "../Constants/staticStrings";
+import { Link, useHistory } from "react-router-dom";
 import {
   SIGN_IN_ACTION_REQUEST,
   signInActionRequest
 } from "../Actions/authenticationActions";
+import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 
-const signInPage = props => {
-  console.log(props);
+const SignInPage = props => {
+  const didMountRef = useRef(false);
+  const history = useHistory();
   const sigIn = (email, password) => {
     let user = {
       Email: email,
@@ -17,6 +18,21 @@ const signInPage = props => {
     };
     props.signInActionRequest({ payload: user });
   };
+
+  useEffect(() => {
+    if (localStorage.token) {
+      history.push("/account");
+    }
+  }, [history]);
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      if (props.token) {
+        history.push("/account");
+      }
+    } else didMountRef.current = true;
+  });
+
   return (
     <>
       <div>{APPLICATION_NAME}</div>
@@ -25,17 +41,16 @@ const signInPage = props => {
         action={sigIn}
       />
       <Link to="/">Sign up instead</Link>
+      <div>{props.errorMessage}</div>
     </>
   );
 };
 
 const mapStateToProps = state => {
-  console.log("State:");
-  console.log(state);
-  // Redux Store --> Component
   return {
-    state: state
+    errorMessage: state.authentication.errorMessage,
+    token: state.authentication.token
   };
 };
 
-export default connect(mapStateToProps, { signInActionRequest })(signInPage);
+export default connect(mapStateToProps, { signInActionRequest })(SignInPage);

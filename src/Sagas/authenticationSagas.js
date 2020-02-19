@@ -38,7 +38,7 @@ function* signup(action) {
       password: action.payload.Password
     };
     const token = yield call(signUpAsync, user);
-    yield put({ type: actions.SIGN_IN_ACTION_SUCCESS, paytload: token });
+    yield put({ type: actions.SIGN_IN_ACTION_SUCCESS, payload: token });
   } catch (e) {
     yield put({ type: actions.SIGN_IN_ACTION_FAILED, payload: e.message });
   }

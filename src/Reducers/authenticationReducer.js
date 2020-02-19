@@ -6,7 +6,6 @@ import {
 } from "../Actions/authenticationActions";
 
 const initialState = {
-  loggedIn: false,
   errorMessage: "",
   token: null
 };
@@ -14,28 +13,30 @@ const initialState = {
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN_ACTION_SUCCESS:
-      console.log(action.payload.user.refreshToken);
       return {
         ...state,
         loggedIn: true,
-        token: action.payload.user.refreshToken
+        token: action.payload.user.refreshToken,
+        errorMessage: ""
       };
     case SIGN_UP_ACTION_SUCCESS:
-      console.log(action.payload.user.refreshToken);
       return {
         ...state,
         loggedIn: true,
-        token: action.payload.user.refreshToken
+        token: action.payload.user.refreshToken,
+        errorMessage: ""
       };
     case SIGN_IN_ACTION_FAILED:
       return {
         ...state,
-        errorMessage: action.payload
+        errorMessage: action.payload,
+        token: null
       };
     case SIGN_UP_ACTION_FAILED:
       return {
         ...state,
-        errorMessage: action.payload
+        errorMessage: action.payload,
+        token: null
       };
     default:
       return state;
