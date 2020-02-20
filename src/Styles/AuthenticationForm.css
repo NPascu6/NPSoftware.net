@@ -1,0 +1,51 @@
+.authenticationInput {
+  height: 2em;
+  max-width: 20em;
+}
+
+.authenticationLabel{
+  height: 2em;
+  width: 10em;
+  font-size: large;
+  color: teal;
+}
+
+.authenticationContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 5em;
+  border: 1px solid teal;
+  width: 50%;
+  height: 50%;
+  margin-top: 2em;
+  align-items: center;
+  background-color: beige;
+  margin: 0 auto
+}
+
+.authenticationRowContainer{
+  display: flex;
+  margin: 1em;
+}
+
+.authenticationButton{
+  height: 3em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: teal ;
+  font-weight: 600;
+  color: rgb(229, 233, 233);
+  width: 15em;
+  margin: 3em;
+}
+
+.authenticationHeader{
+  font-weight: bold;
+  margin: 3em;
+  font-size: x-large;
+  color: teal;
+}
+
+.authenticationErrorMessage{
+  color: red;
+}

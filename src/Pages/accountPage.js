@@ -8,7 +8,6 @@ const AccountPage = props => {
   const history = useHistory();
 
   useEffect(() => {
-    debugger;
     let token = localStorage.getItem("token");
     if (token !== null && props.token === null) {
       props.setTokenActionRequest(token);
