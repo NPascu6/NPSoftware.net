@@ -36,8 +36,8 @@ const SignInPage = props => {
 
   return (
     <>
-      <div class="authenticationTopHeader">{APPLICATION_NAME}</div>
-      <div class="authenticationLink">
+      <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
+      <div className="authenticationLink">
         <Link to="/">Sign up instead</Link>
       </div>
       <AuthenticationFormComponent 

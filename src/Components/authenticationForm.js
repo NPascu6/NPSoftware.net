@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TextField from "@material-ui/core/TextField";
 import {
   SIGN_IN_BUTTON,
   SIGN_UP_BUTTON,
@@ -17,36 +18,38 @@ const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
   };
 
   return (
-    <div class="authenticationContainer">
-      <div class="authenticationHeader">
+    <div className="authenticationContainer">
+      <div className="authenticationHeader">
         {type === SIGN_UP_ACTION_REQUEST
           ? SIGNUPSCREEN_HEADER
           : LOGINSCREEN_HEADER}
       </div>
-      <div class="authenticationRowContainer">
-        <label class="authenticationLabel">Email:</label>
-        <input
-          class="authenticationInput"
+      <div className="authenticationRowContainer">
+        <label className="authenticationLabel">Email:</label>
+        <TextField
+          className="authenticationInput"
           value={email}
-          name="email"
           onChange={e => setEmail(e.target.value)}
-        ></input>
+          name="email"
+          type="email"
+        />
       </div>
-      <div class="authenticationRowContainer">
-        <label class="authenticationLabel">Password:</label>
-        <input
-          class="authenticationInput"
+      <div className="authenticationRowContainer">
+        <label className="authenticationLabel">Password:</label>
+        <TextField
+          className="authenticationInput"
           value={password}
           onChange={e => setPassword(e.target.value)}
           name="password"
-        ></input>
+          type="password"
+        />
       </div>
       <div>
-        <button class="authenticationButton" onClick={() => submit()}>
+        <button className="authenticationButton" onClick={() => submit()}>
           {type === SIGN_UP_ACTION_REQUEST ? SIGN_UP_BUTTON : SIGN_IN_BUTTON}
         </button>
       </div>
-      <div class="authenticationErrorMessage">{errorMessage}</div>
+      <div className="authenticationErrorMessage">{errorMessage}</div>
     </div>
   );
 };

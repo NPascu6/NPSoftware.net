@@ -1,14 +1,15 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth'
 
 const firebaseService = firebase.initializeApp({
-  apiKey: 'AIzaSyBjHnZf5zmR4FRSMYxuWSMRy_6TyCBnp4c',
-  authDomain: 'erb-e0382.firebaseapp.com',
-  databaseURL: 'https://erb-e0382.firebaseio.com',
-  projectId: 'erb-e0382',
-  storageBucket: 'erb-e0382.appspot.com',
-  messagingSenderId: '84279500594',
-  appId: '1:84279500594:web:1d4c2acad34b343419412b',
-  measurementId: 'G-6LY4EY72N9'
+  apiKey: "AIzaSyD9o_-qE_kiiT2xzhpsyZDrv8H-Rwa8y_Q",
+  authDomain: "npsoftware-41219.firebaseapp.com",
+  databaseURL: "https://npsoftware-41219.firebaseio.com",
+  projectId: "npsoftware-41219",
+  storageBucket: "npsoftware-41219.appspot.com",
+  messagingSenderId: "1065642864434",
+  appId: "1:1065642864434:web:80a531cc76503ec608712b",
+  measurementId: "G-6QNP53N9F3"
 })
 
 export default firebaseService
