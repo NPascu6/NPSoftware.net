@@ -8,7 +8,7 @@ import {
 } from "../Constants/staticStrings";
 import {
   SIGN_UP_ACTION_REQUEST
-} from "../Actions/authenticationActions";
+} from "../Constants/authenticationActionNames";
 import "../Styles/AuthenticationForm.css";
 import svg from "../../src/Assets/logo.svg";
 

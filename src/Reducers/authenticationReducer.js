@@ -6,7 +6,7 @@ import {
   LOG_OUT_ACTION_SUCCESS,
   SET_TOKEN,
   CLEAR_ERROR
-} from "../Actions/authenticationActions";
+} from "../Constants/authenticationActionNames";
 
 const initialState = {
   errorMessage: "",

@@ -2,10 +2,10 @@ import React, { useRef, useEffect } from "react";
 import AuthenticationFormComponent from "../Components/authenticationForm";
 import { Link, useHistory } from "react-router-dom";
 import {
-  SIGN_IN_ACTION_REQUEST,
   signInActionRequest,
   clearErrorRequest
 } from "../Actions/authenticationActions";
+import { SIGN_IN_ACTION_REQUEST} from '../Constants/authenticationActionNames'
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 import "../Styles/AuthenticationScreen.css";
