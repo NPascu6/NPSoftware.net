@@ -3,12 +3,12 @@ import AuthenticationFormComponent from "../Components/authenticationForm";
 import { Link, useHistory } from "react-router-dom";
 import {
   SIGN_IN_ACTION_REQUEST,
-  signInActionRequest
+  signInActionRequest,
+  clearErrorRequest
 } from "../Actions/authenticationActions";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 import "../Styles/AuthenticationScreen.css";
-import svg from "../../src/Assets/logo.svg";
 
 const SignInPage = props => {
   const didMountRef = useRef(false);
@@ -39,7 +39,7 @@ const SignInPage = props => {
     <>
       <div className="authenticationHeader">
         <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-        <div className="authenticationLink">
+        <div className="authenticationLink" onClick={props.clearErrorRequest}>
           <Link to="/">Sign up instead</Link>
         </div>
       </div>
@@ -59,4 +59,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { signInActionRequest })(SignInPage);
+export default connect(mapStateToProps, { signInActionRequest, clearErrorRequest })(SignInPage);

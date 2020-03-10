@@ -6,16 +6,18 @@ import {
   SIGNUPSCREEN_HEADER,
   LOGINSCREEN_HEADER
 } from "../Constants/staticStrings";
-import { SIGN_UP_ACTION_REQUEST } from "../Actions/authenticationActions";
+import {
+  SIGN_UP_ACTION_REQUEST
+} from "../Actions/authenticationActions";
 import "../Styles/AuthenticationForm.css";
 import svg from "../../src/Assets/logo.svg";
 
-const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
+const AuthenticationFormComponent = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const submit = () => {
-    action(email, password);
+    props.action(email, password);
   };
 
   return (
@@ -24,7 +26,7 @@ const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
         <img alt="" src={svg} />
       </div>
       <div className="authenticationFormHeader">
-        {type === SIGN_UP_ACTION_REQUEST
+        {props.type === SIGN_UP_ACTION_REQUEST
           ? SIGNUPSCREEN_HEADER
           : LOGINSCREEN_HEADER}
       </div>
@@ -50,10 +52,12 @@ const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
       </div>
       <div>
         <button className="authenticationButton" onClick={() => submit()}>
-          {type === SIGN_UP_ACTION_REQUEST ? SIGN_UP_BUTTON : SIGN_IN_BUTTON}
+          {props.type === SIGN_UP_ACTION_REQUEST
+            ? SIGN_UP_BUTTON
+            : SIGN_IN_BUTTON}
         </button>
       </div>
-      <div className="authenticationErrorMessage">{errorMessage}</div>
+      <div className="authenticationErrorMessage">{props.errorMessage}</div>
     </div>
   );
 };

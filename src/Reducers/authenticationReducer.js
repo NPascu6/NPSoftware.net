@@ -4,7 +4,8 @@ import {
   SIGN_IN_ACTION_FAILED,
   SIGN_UP_ACTION_FAILED,
   LOG_OUT_ACTION_SUCCESS,
-  SET_TOKEN
+  SET_TOKEN,
+  CLEAR_ERROR
 } from "../Actions/authenticationActions";
 
 const initialState = {
@@ -47,12 +48,16 @@ const authenticationReducer = (state = initialState, action) => {
         errorMessage: ""
       };
     case SET_TOKEN:
-      console.log(action)
       return {
         ...state,
         token: action.payload
       };
-
+    case CLEAR_ERROR:
+      console.log('clear error')
+      return {
+        ...state,
+        errorMessage: ""
+      };
     default:
       return state;
   }

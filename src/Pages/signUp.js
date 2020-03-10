@@ -3,7 +3,8 @@ import AuthenticationFormComponent from "../Components/authenticationForm";
 import { Link, useHistory } from "react-router-dom";
 import {
   SIGN_UP_ACTION_REQUEST,
-  signUpActionRequest
+  signUpActionRequest,
+  clearErrorRequest
 } from "../Actions/authenticationActions";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
@@ -38,9 +39,8 @@ const SignUpPage = props => {
   return (
     <>
       <div className="authenticationHeader">
-        
         <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-        <div className="authenticationLink">
+        <div className="authenticationLink" onClick={props.clearErrorRequest}>
           <Link to="/signInPage">Log in instead</Link>
         </div>
       </div>
@@ -60,4 +60,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { signUpActionRequest })(SignUpPage);
+export default connect(mapStateToProps, {
+  signUpActionRequest,
+  clearErrorRequest
+})(SignUpPage);
