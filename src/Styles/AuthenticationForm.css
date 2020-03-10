@@ -13,11 +13,10 @@
 .authenticationContainer{
   display: flex;
   flex-direction: column;
-  padding: 5em;
+  padding: 2em;
   border: 1px solid teal;
   width: 50%;
   height: 50%;
-  margin-top: 2em;
   align-items: center;
   background-color: beige;
   margin: 0 auto
@@ -39,7 +38,7 @@
   margin: 3em;
 }
 
-.authenticationHeader{
+.authenticationFormHeader{
   font-weight: bold;
   margin: 3em;
   font-size: x-large;

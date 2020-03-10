@@ -8,6 +8,7 @@ import {
 } from "../Constants/staticStrings";
 import { SIGN_UP_ACTION_REQUEST } from "../Actions/authenticationActions";
 import "../Styles/AuthenticationForm.css";
+import svg from "../../src/Assets/logo.svg";
 
 const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,10 @@ const AuthenticationFormComponent = ({ type, action, errorMessage }) => {
 
   return (
     <div className="authenticationContainer">
-      <div className="authenticationHeader">
+      <div className="authenticationIcon">
+        <img alt="" src={svg} />
+      </div>
+      <div className="authenticationFormHeader">
         {type === SIGN_UP_ACTION_REQUEST
           ? SIGNUPSCREEN_HEADER
           : LOGINSCREEN_HEADER}
