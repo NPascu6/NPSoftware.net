@@ -3,22 +3,19 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import LogOutButton from "../Components/logoutButton";
 import { setTokenActionRequest } from "../Actions/authenticationActions";
+import { useCookies } from "react-cookie";
 
 const AccountPage = props => {
   const history = useHistory();
+  const [cookies, setCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token !== null && props.token === null) {
-      props.setTokenActionRequest(token);
-    } else if (token === null && props.token !== null) {
-      localStorage.setItem("token", props.token);
-    } else if (token !== null && props.token !== null) {
-      return;
-    } else {
+    
+    let token = cookies.token;
+    if (token == null) {
       history.push("/");
     }
-  }, [history, props, props.token]);
+  }, [cookies.token, history, props, props.token, setCookie]);
 
   return (
     <>

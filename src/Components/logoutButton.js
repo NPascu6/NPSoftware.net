@@ -2,12 +2,14 @@ import React from "react";
 import { logOutActionRequest } from "../Actions/authenticationActions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const LogOutButton = props => {
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const history = useHistory();
   const logOut = () => {
+    removeCookie('token')
     props.logOutActionRequest();
-    localStorage.clear()
     history.push("/");
   };
 

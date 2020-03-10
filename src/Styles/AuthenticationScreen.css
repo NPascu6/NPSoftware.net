@@ -18,8 +18,6 @@
 }
 
 .authenticationIcon{
-  height: 10em;
-  width: 15em;
-  margin: 0 auto;
+  flex: 1;
 }
 

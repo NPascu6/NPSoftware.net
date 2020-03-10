@@ -5,14 +5,16 @@ import {
   signUpActionRequest,
   clearErrorRequest
 } from "../Actions/authenticationActions";
-import { SIGN_UP_ACTION_REQUEST} from '../Constants/authenticationActionNames'
+import { SIGN_UP_ACTION_REQUEST } from "../Constants/authenticationActionNames";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 import "../Styles/AuthenticationScreen.css";
+import { useCookies } from "react-cookie";
 
 const SignUpPage = props => {
   const history = useHistory();
   const didMountRef = useRef(false);
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const signUp = (email, password) => {
     let user = {
@@ -23,18 +25,11 @@ const SignUpPage = props => {
   };
 
   useEffect(() => {
-    if (localStorage.token) {
+    console.log(cookies.token)
+    if (cookies.token != null) {
       history.push("/account");
     }
-  }, [history]);
-
-  useEffect(() => {
-    if (didMountRef.current) {
-      if (props.token) {
-        history.push("/account");
-      }
-    } else didMountRef.current = true;
-  });
+  }, [cookies, cookies.token, history, props.token]);
 
   return (
     <>
