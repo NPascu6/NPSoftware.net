@@ -1,4 +1,4 @@
-import * as actions from '../Constants/authenticationActionNames'
+import * as actions from "../Constants/authenticationActionNames";
 
 export const signUpActionRequest = action => ({
   type: actions.SIGN_UP_ACTION_REQUEST,

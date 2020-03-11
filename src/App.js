@@ -1,5 +1,5 @@
 import React from "react";
-import { Router } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import history from "./Services/history";
 import Routes from "./Navigation/router";
 import store from "./Store/store";
@@ -10,9 +10,9 @@ const App = () => {
   return (
     <CookiesProvider>
       <Provider store={store}>
-        <Router history={history}>
+        <HashRouter history={history}>
           <Routes />
-        </Router>
+        </HashRouter>
       </Provider>
     </CookiesProvider>
   );

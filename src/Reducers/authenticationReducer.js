@@ -53,7 +53,6 @@ const authenticationReducer = (state = initialState, action) => {
         token: action.payload
       };
     case CLEAR_ERROR:
-      console.log('clear error')
       return {
         ...state,
         errorMessage: ""

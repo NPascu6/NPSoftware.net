@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import LogOutButton from "../Components/logoutButton";
 import { setTokenActionRequest } from "../Actions/authenticationActions";
 import { useCookies } from "react-cookie";
+import AccountDetails from "../Components/accountDetails";
 
 const AccountPage = props => {
   const history = useHistory();
@@ -21,6 +22,7 @@ const AccountPage = props => {
     <>
       <div>Account Page</div>
       <div>Coming soon</div>
+      <AccountDetails/>
       <LogOutButton />
     </>
   );

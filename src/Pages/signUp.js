@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import AuthenticationFormComponent from "../Components/authenticationForm";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -13,7 +13,6 @@ import { useCookies } from "react-cookie";
 
 const SignUpPage = props => {
   const history = useHistory();
-  const didMountRef = useRef(false);
   const [cookies, setCookie] = useCookies(["token"]);
 
   const signUp = (email, password) => {
@@ -25,7 +24,6 @@ const SignUpPage = props => {
   };
 
   useEffect(() => {
-    console.log(cookies.token)
     if (cookies.token != null) {
       history.push("/account");
     }

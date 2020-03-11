@@ -5,6 +5,10 @@ import {
   signInActionRequest,
   clearErrorRequest
 } from "../Actions/authenticationActions";
+import {
+  addUserDetailsRequest,
+  getUserDetailsRequest
+} from "../Actions/userManagementActions";
 import { SIGN_IN_ACTION_REQUEST } from "../Constants/authenticationActionNames";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
@@ -22,6 +26,7 @@ const SignInPage = props => {
       Password: password
     };
     props.signInActionRequest({ payload: user });
+    props.getUserDetailsRequest();
   };
 
   useEffect(() => {
@@ -31,7 +36,6 @@ const SignInPage = props => {
   }, [cookies, history, props.token]);
 
   useEffect(() => {
-    //console.log(cookies);
     if (didMountRef.current) {
       if (props.token) {
         setCookie("token", props.token);
@@ -66,5 +70,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   signInActionRequest,
-  clearErrorRequest
+  clearErrorRequest,
+  addUserDetailsRequest,
+  getUserDetailsRequest
 })(SignInPage);

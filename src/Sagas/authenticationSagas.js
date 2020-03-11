@@ -1,5 +1,5 @@
 import { takeEvery, fork, put, call } from "redux-saga/effects";
-import * as actions from "../Constants/authenticationActionNames"
+import * as actions from "../Constants/authenticationActionNames";
 import firebaseService from "../API/firebaseConfig";
 
 const signUpAsync = async user => {
