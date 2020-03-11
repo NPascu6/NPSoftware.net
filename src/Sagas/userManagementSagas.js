@@ -1,4 +1,4 @@
-import { takeEvery, fork, call } from "redux-saga/effects";
+import { takeEvery, fork, call, put } from "redux-saga/effects";
 import * as actions from "../Constants/userManagementActionNames";
 import firebaseService from "../API/firebaseConfig";
 
@@ -19,9 +19,8 @@ const getUserDetailsAsync = async userDetails => {
   firebaseService
     .database()
     .ref("/userList")
-    .on("value", snapshot => {
-      console.log(snapshot.val());
-    });
+    .once("value")
+    .then(snpashot => snpashot.val());
 };
 
 function* addUserDetails() {
@@ -29,7 +28,29 @@ function* addUserDetails() {
 }
 
 function* getUserDetails() {
-  yield call(getUserDetailsAsync);
+  var roomRef = firebaseService.database().ref("/userList");
+  let details = yield call(() => {
+    return new Promise(function(resolve, reject) {
+      roomRef.once("value", snap => {
+        let details = [];
+        let roomkeys = snap.val();
+        firebaseService
+          .database()
+          .ref("/userList")
+          .once("value", item => {
+            debugger
+            details.push(item.val());
+          });
+
+        resolve(details);
+      });
+    });
+  });
+  console.log(details);
+  debugger
+  yield put({
+    type: actions.GET_USER_DETAILS_REQUEST_SUCCESS
+  });
 }
 
 function* watchAddUserDetails() {

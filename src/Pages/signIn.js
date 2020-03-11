@@ -5,10 +5,6 @@ import {
   signInActionRequest,
   clearErrorRequest
 } from "../Actions/authenticationActions";
-import {
-  addUserDetailsRequest,
-  getUserDetailsRequest
-} from "../Actions/userManagementActions";
 import { SIGN_IN_ACTION_REQUEST } from "../Constants/authenticationActionNames";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
@@ -26,7 +22,6 @@ const SignInPage = props => {
       Password: password
     };
     props.signInActionRequest({ payload: user });
-    props.getUserDetailsRequest();
   };
 
   useEffect(() => {
@@ -70,7 +65,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   signInActionRequest,
-  clearErrorRequest,
-  addUserDetailsRequest,
-  getUserDetailsRequest
+  clearErrorRequest
 })(SignInPage);

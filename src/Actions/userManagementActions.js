@@ -1,7 +1,8 @@
 import * as actions from "../Constants/userManagementActionNames";
 
-export const addUserDetailsRequest = () => ({
-  type: actions.ADD_USER_DETAILS_REQUEST
+export const addUserDetailsRequest = action => ({
+  type: actions.ADD_USER_DETAILS_REQUEST,
+  payload: action.payload
 });
 
 export const getUserDetailsRequest = () => ({
