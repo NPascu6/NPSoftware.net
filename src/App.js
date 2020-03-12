@@ -8,7 +8,6 @@ import store from './Store/store';
 
 const history = createBrowserHistory();
 
-
 const App = () => (
   <CookiesProvider>
     <Provider store={store}>

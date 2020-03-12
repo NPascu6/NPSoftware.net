@@ -41,7 +41,7 @@ const AccountDetails = ({
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel" htmlFor="addresLabel">
+        <label className="authenticationLabel" htmlFor="addresLabel" style={displayNone}>
           addres:
           {' '}
           <select label="addresLabel" />
@@ -54,7 +54,7 @@ const AccountDetails = ({
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel" htmlFor="phoneNumbLabel">
+        <label className="authenticationLabel" htmlFor="phoneNumbLabel" style={displayNone}>
           Phone Number:
           {' '}
           <select label="phoneNumbLabel" />
@@ -68,9 +68,8 @@ const AccountDetails = ({
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel" htmlFor="userNameLabel">
+        <label className="authenticationLabel" htmlFor="userNameLabel" style={displayNone}>
           User Name:
-          {' '}
           <select label="userNameLabel" />
         </label>
         <TextField

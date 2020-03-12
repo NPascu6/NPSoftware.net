@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import PropTypes from 'prop-types'; // ES6
+import PropTypes, { object } from 'prop-types'; // ES6
 import {
   getUserDetailsRequest,
   addUserDetailsRequest,
@@ -14,7 +14,6 @@ import LoadingScreen from '../Components/loadingComponent';
 import '../Styles/AuthenticationForm.css';
 
 const AccountPage = ({
-
   // eslint-disable-next-line no-shadow
   added, loader, accountDetails, addLoader, removeLoader, getUserDetailsRequest, addUserDetailsRequest,
 }) => {
@@ -29,15 +28,14 @@ const AccountPage = ({
     const { token } = cookies;
     if (token == null) {
       history.push('/');
-    }
-    if (added) {
+    } else if (added) {
       removeLoader();
     }
-  }, [added, cookies, history, removeLoader]);
+  }, [added, cookies, history, removeLoader, cookies.token]);
 
   useEffect(() => {
-    getUserDetailsRequest();
-    addLoader();
+    const { token } = cookies;
+    if (token) { getUserDetailsRequest(); addLoader(); }
   }, [getUserDetailsRequest, addLoader]);
 
   useEffect(() => {
