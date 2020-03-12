@@ -27,7 +27,7 @@ const SignUpPage = props => {
     if (cookies.token != null) {
       history.push("/account");
     }
-  }, [cookies, cookies.token, history, props.token]);
+  }, [cookies, cookies.token, history]);
 
   return (
     <>

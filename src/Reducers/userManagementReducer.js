@@ -13,7 +13,6 @@ const initialState = {
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_DETAILS_REQUEST_SUCCESS:
-      debugger
       return {
         ...state,
         user: action.payload,

@@ -23,7 +23,6 @@ const AccountPage = props => {
   }, [cookies.token, history, props]);
 
   useEffect(() => {
-    debugger;
     props.getUserDetailsRequest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -39,6 +38,7 @@ const AccountPage = props => {
   const save = user => {
     props.addUserDetailsRequest({ payload: user });
   };
+
   return (
     <>
       <AccountDetails accountDetails={accountDetails} action={save} />
