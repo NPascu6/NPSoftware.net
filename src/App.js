@@ -2,9 +2,12 @@ import React from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
-import history from './Services/history';
+import { createBrowserHistory } from 'history';
 import Routes from './Navigation/router';
 import store from './Store/store';
+
+const history = createBrowserHistory();
+
 
 const App = () => (
   <CookiesProvider>
