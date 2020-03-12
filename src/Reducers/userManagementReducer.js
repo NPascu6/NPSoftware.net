@@ -7,7 +7,8 @@ import {
 
 const initialState = {
   errorMessage: "",
-  user: {}
+  user: {},
+  added: false
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -26,8 +27,8 @@ const authenticationReducer = (state = initialState, action) => {
     case ADD_USER_DETAILS_REQUEST_SUCCESS:
       return {
         ...state,
-        user: action.payload,
-        errorMessage: ""
+        added: true,
+        user: action.payload
       };
     case ADD_USER_DETAILS_REQUEST_FAILED:
       return {

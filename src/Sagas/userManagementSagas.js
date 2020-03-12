@@ -25,6 +25,10 @@ const getUser = async () => {
 function* addDetails(user) {
   let response = yield addUserDetails(user);
   console.log(response);
+  yield put({
+    type: actions.ADD_USER_DETAILS_REQUEST_SUCCESS,
+    payload: user.payload
+  });
 }
 
 function* getUserDetails() {

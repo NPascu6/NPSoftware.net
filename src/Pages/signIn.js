@@ -5,11 +5,13 @@ import {
   signInActionRequest,
   clearErrorRequest
 } from "../Actions/authenticationActions";
+import { addLoader, removeLoader } from "../Actions/utilitiesActions";
 import { SIGN_IN_ACTION_REQUEST } from "../Constants/authenticationActionNames";
 import { APPLICATION_NAME } from "../Constants/staticStrings";
 import { connect } from "react-redux";
 import "../Styles/AuthenticationScreen.css";
 import { useCookies } from "react-cookie";
+import LoadingScreen from "../Components/loadingComponent";
 
 const SignInPage = props => {
   const didMountRef = useRef(false);
@@ -22,8 +24,9 @@ const SignInPage = props => {
       Password: password
     };
     props.signInActionRequest({ payload: user });
+    props.addLoader();
   };
-
+  console.log(props);
   useEffect(() => {
     if (cookies.token != null) {
       history.push("/account");
@@ -41,29 +44,42 @@ const SignInPage = props => {
 
   return (
     <>
-      <div className="authenticationHeader">
-        <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-        <div className="authenticationLink" onClick={props.clearErrorRequest}>
-          <Link to="/">Sign up instead</Link>
-        </div>
-      </div>
-      <AuthenticationFormComponent
-        type={SIGN_IN_ACTION_REQUEST}
-        action={sigIn}
-        errorMessage={props.errorMessage}
-      />
+      {props.loader ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <div className="authenticationHeader">
+            <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
+            <div
+              className="authenticationLink"
+              onClick={props.clearErrorRequest}
+            >
+              <Link to="/">Sign up instead</Link>
+            </div>
+          </div>
+          <AuthenticationFormComponent
+            type={SIGN_IN_ACTION_REQUEST}
+            action={sigIn}
+            errorMessage={props.errorMessage}
+          />
+        </>
+      )}
     </>
   );
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     errorMessage: state.authentication.errorMessage,
-    token: state.authentication.token
+    token: state.authentication.token,
+    loader: state.utitlitiesReducer.loader
   };
 };
 
 export default connect(mapStateToProps, {
   signInActionRequest,
-  clearErrorRequest
+  clearErrorRequest,
+  addLoader,
+  removeLoader
 })(SignInPage);

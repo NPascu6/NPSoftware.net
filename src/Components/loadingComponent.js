@@ -1,9 +1,11 @@
 import React from "react";
+import "../Styles/LoadingScreen.css";
 
 const LoadingScreen = props => {
     return (
         <>
-        <div>Loading</div>
+        <div className="loader"></div>
+        <div className="loaderName">Loading...</div>
         </>
     )
 };
