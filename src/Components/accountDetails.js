@@ -1,23 +1,20 @@
-import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import "../Styles/AuthenticationForm.css";
+import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import '../Styles/AuthenticationForm.css';
 
-const AccountDetails = props => {
-  const [accountDetails, setAccountDetails] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Addres, setAddres] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [UserName, setUserName] = useState("");
+const AccountDetails = (props) => {
+  const [Email, setEmail] = useState('');
+  const [Addres, setAddres] = useState('');
+  const [PhoneNumber, setPhoneNumber] = useState('');
+  const [UserName, setUserName] = useState('');
 
   const submit = () => {
-    let newDetails = {
+    const newDetails = {
       Email,
       Addres,
       PhoneNumber,
-      UserName
+      UserName,
     };
-    debugger
-    console.log(newDetails)
     props.action(newDetails);
   };
 
@@ -30,7 +27,7 @@ const AccountDetails = props => {
         <TextField
           className="authenticationInput"
           value={Email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           name="email"
           type="email"
           placeholder={props.accountDetails.Email}
@@ -40,7 +37,7 @@ const AccountDetails = props => {
         <label className="authenticationLabel">addres:</label>
         <TextField
           value={Addres}
-          onChange={e => setAddres(e.target.value)}
+          onChange={(e) => setAddres(e.target.value)}
           name="address"
           placeholder={props.accountDetails.Addres}
         />
@@ -49,7 +46,7 @@ const AccountDetails = props => {
         <label className="authenticationLabel">Phone Number:</label>
         <TextField
           value={PhoneNumber}
-          onChange={e => setPhoneNumber(e.target.value)}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           name="phoneNumber"
           type="phoneNumber"
           placeholder={props.accountDetails.PhoneNumber}
@@ -59,7 +56,7 @@ const AccountDetails = props => {
         <label className="authenticationLabel">User Name:</label>
         <TextField
           value={UserName}
-          onChange={e => setUserName(e.target.value)}
+          onChange={(e) => setUserName(e.target.value)}
           name="userName"
           placeholder={props.accountDetails.UserName}
         />

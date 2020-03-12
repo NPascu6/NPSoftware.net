@@ -1,16 +1,16 @@
-import React from "react";
-import { logOutActionRequest } from "../Actions/authenticationActions";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { logOutActionRequest } from '../Actions/authenticationActions';
 
-const LogOutButton = props => {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+const LogOutButton = (props) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const history = useHistory();
   const logOut = () => {
-    removeCookie('token')
+    removeCookie('token');
     props.logOutActionRequest();
-    history.push("/");
+    history.push('/');
   };
 
   return (
@@ -20,11 +20,9 @@ const LogOutButton = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    errorMessage: state.authentication.errorMessage,
-    token: state.authentication.token
-  };
-};
+const mapStateToProps = (state) => ({
+  errorMessage: state.authentication.errorMessage,
+  token: state.authentication.token,
+});
 
 export default connect(mapStateToProps, { logOutActionRequest })(LogOutButton);

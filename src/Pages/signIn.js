@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import AuthenticationFormComponent from '../Components/authenticationForm';
 import {
   signInActionRequest,
@@ -10,7 +11,7 @@ import { addLoader, removeLoader } from '../Actions/utilitiesActions';
 import { SIGN_IN_ACTION_REQUEST } from '../Constants/authenticationActionNames';
 import { APPLICATION_NAME } from '../Constants/staticStrings';
 import '../Styles/AuthenticationScreen.css';
-import { useCookies } from 'react-cookie';
+
 import LoadingScreen from '../Components/loadingComponent';
 
 const SignInPage = (props) => {
@@ -31,7 +32,7 @@ const SignInPage = (props) => {
     if (cookies.token != null) {
       history.push('/account');
     }
-  }, [cookies, history, props.token]);
+  }, [cookies, history]);
 
   useEffect(() => {
     if (didMountRef.current) {

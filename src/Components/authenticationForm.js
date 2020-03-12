@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
+import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 import {
   SIGN_IN_BUTTON,
   SIGN_UP_BUTTON,
   SIGNUPSCREEN_HEADER,
-  LOGINSCREEN_HEADER
-} from "../Constants/staticStrings";
+  LOGINSCREEN_HEADER,
+} from '../Constants/staticStrings';
 import {
-  SIGN_UP_ACTION_REQUEST
-} from "../Constants/authenticationActionNames";
-import "../Styles/AuthenticationForm.css";
-import svg from "../../src/Assets/logo.svg";
+  SIGN_UP_ACTION_REQUEST,
+} from '../Constants/authenticationActionNames';
+import '../Styles/AuthenticationForm.css';
+import svg from '../Assets/logo.svg';
 
-const AuthenticationFormComponent = props => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const AuthenticationFormComponent = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const submit = () => {
     props.action(email, password);
@@ -35,7 +35,7 @@ const AuthenticationFormComponent = props => {
         <TextField
           className="authenticationInput"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           name="email"
           type="email"
         />
@@ -45,7 +45,7 @@ const AuthenticationFormComponent = props => {
         <TextField
           className="authenticationInput"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           name="password"
           type="password"
         />

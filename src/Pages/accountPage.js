@@ -22,7 +22,9 @@ const AccountPage = (props) => {
     if (token == null) {
       history.push('/');
     }
+    debugger;
     if (props.added) {
+      debugger;
       props.removeLoader();
     }
   }, [cookies.token, history, props.added]);
@@ -33,6 +35,7 @@ const AccountPage = (props) => {
   }, []);
 
   useEffect(() => {
+    debugger;
     if (didMountRef.current) {
       if (props.accountDetails) {
         setAccountDetails(props.accountDetails);

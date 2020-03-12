@@ -1,5 +1,5 @@
 import {
-  takeEvery, fork, call, put,
+  takeEvery, fork, put,
 } from 'redux-saga/effects';
 import * as actions from '../Constants/userManagementActionNames';
 import firebaseService from '../API/firebaseConfig';
@@ -20,11 +20,12 @@ const getUser = () => firebaseService
 
 function* addDetails(user) {
   const response = yield addUserDetails(user);
-  console.log(response);
-  yield put({
-    type: actions.ADD_USER_DETAILS_REQUEST_SUCCESS,
-    payload: user.payload,
-  });
+  if (response) {
+    yield put({
+      type: actions.ADD_USER_DETAILS_REQUEST_SUCCESS,
+      payload: user.payload,
+    });
+  }
 }
 
 function* getUserDetails() {

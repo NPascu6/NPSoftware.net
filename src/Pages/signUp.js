@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import AuthenticationFormComponent from '../Components/authenticationForm';
 import {
   signUpActionRequest,
@@ -9,7 +10,6 @@ import {
 import { SIGN_UP_ACTION_REQUEST } from '../Constants/authenticationActionNames';
 import { APPLICATION_NAME } from '../Constants/staticStrings';
 import '../Styles/AuthenticationScreen.css';
-import { useCookies } from 'react-cookie';
 
 const SignUpPage = (props) => {
   const history = useHistory();
