@@ -47,7 +47,7 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
-        errorMessage: action.payload,
+        errorMessage: '',
         loggedIn: action.payload,
       };
     case SET_TOKEN:

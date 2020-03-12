@@ -1,74 +1,109 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import '../Styles/AuthenticationForm.css';
+import PropTypes from 'prop-types'; // ES6
 
-const AccountDetails = (props) => {
-  const [Email, setEmail] = useState('');
-  const [Addres, setAddres] = useState('');
-  const [PhoneNumber, setPhoneNumber] = useState('');
-  const [UserName, setUserName] = useState('');
-
+const AccountDetails = ({
+  accountDetails, errorMessage, action,
+}) => {
+  const [email, setEmail] = useState('');
+  const [addres, setAddres] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [userName, setUserName] = useState('');
+  const displayNone = {
+    display: 'none',
+  };
   const submit = () => {
     const newDetails = {
-      Email,
-      Addres,
-      PhoneNumber,
-      UserName,
+      email,
+      addres,
+      phoneNumber,
+      userName,
     };
-    props.action(newDetails);
+    action(newDetails);
   };
 
   return (
     <>
       <div className="authenticationIcon">{}</div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">Email:</label>
+        <label className="authenticationLabel" style={displayNone} htmlFor="authLabel">
+          Email:
+          <select label="authLabel" />
+        </label>
         <TextField
           className="authenticationInput"
-          value={Email}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           name="email"
           type="email"
-          placeholder={props.accountDetails.Email}
+          placeholder={accountDetails.Email}
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">addres:</label>
+        <label className="authenticationLabel" htmlFor="addresLabel">
+          addres:
+          {' '}
+          <select label="addresLabel" />
+        </label>
         <TextField
-          value={Addres}
+          value={addres}
           onChange={(e) => setAddres(e.target.value)}
           name="address"
-          placeholder={props.accountDetails.Addres}
+          placeholder={accountDetails.Addres}
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">Phone Number:</label>
+        <label className="authenticationLabel" htmlFor="phoneNumbLabel">
+          Phone Number:
+          {' '}
+          <select label="phoneNumbLabel" />
+        </label>
         <TextField
-          value={PhoneNumber}
+          value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           name="phoneNumber"
           type="phoneNumber"
-          placeholder={props.accountDetails.PhoneNumber}
+          placeholder={accountDetails.PhoneNumber}
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">User Name:</label>
+        <label className="authenticationLabel" htmlFor="userNameLabel">
+          User Name:
+          {' '}
+          <select label="userNameLabel" />
+        </label>
         <TextField
-          value={UserName}
+          value={userName}
           onChange={(e) => setUserName(e.target.value)}
           name="userName"
-          placeholder={props.accountDetails.UserName}
+          placeholder={accountDetails.UserName}
         />
       </div>
       <div>
-        <button className="authenticationButton" onClick={submit}>
+        <button type="submit" className="authenticationButton" onClick={submit}>
           Save
         </button>
       </div>
-      <div className="authenticationErrorMessage">{props.errorMessage}</div>
+      <div className="authenticationErrorMessage">{errorMessage}</div>
     </>
 
   );
+};
+
+AccountDetails.propTypes = {
+  accountDetails: PropTypes.shape({
+    Addres: PropTypes.string.isRequired,
+    PhoneNumber: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    UserName: PropTypes.string.isRequired,
+  }),
+  errorMessage: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+};
+
+AccountDetails.defaultProps = {
+  accountDetails: {},
 };
 
 export default AccountDetails;

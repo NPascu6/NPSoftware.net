@@ -14,6 +14,7 @@ import LoadingScreen from '../Components/loadingComponent';
 import '../Styles/AuthenticationForm.css';
 
 const AccountPage = ({
+
   // eslint-disable-next-line no-shadow
   added, loader, accountDetails, addLoader, removeLoader, getUserDetailsRequest, addUserDetailsRequest,
 }) => {

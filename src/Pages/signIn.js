@@ -39,10 +39,10 @@ const SignInPage = ({
 
   useEffect(() => {
     if (didMountRef.current) {
+      removeLoader();
       if (token != null) {
         setCookie('token', token);
-        removeLoader();
-        token && history.push('/account');
+        if (token)history.push('/account');
       } if (errorMessage !== '') {
         removeLoader();
         didMountRef.current = false;
@@ -93,14 +93,11 @@ SignInPage.defaultProps = {
   token: '',
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    errorMessage: state.authentication.errorMessage,
-    token: state.authentication.token,
-    loader: state.utitlitiesReducer.loader,
-  };
-};
+const mapStateToProps = (state) => ({
+  errorMessage: state.authentication.errorMessage,
+  token: state.authentication.token,
+  loader: state.utitlitiesReducer.loader,
+});
 
 export default connect(mapStateToProps, {
   signInActionRequest,

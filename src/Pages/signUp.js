@@ -36,15 +36,14 @@ const SignUpPage = ({
     if (cookies.token != null) {
       history.push('/account');
     }
-  }, [cookies, cookies.token, history]);
+  }, [cookies, history]);
 
   useEffect(() => {
     if (didMountRef.current) {
-      debugger;
       if (token != null) {
-        setCookie('token', token);
         removeLoader();
-        token && history.push('/account');
+        setCookie('token', token);
+        if (token)history.push('/account');
       } else if (errorMessage !== '') {
         removeLoader();
         didMountRef.current = false;
@@ -60,7 +59,7 @@ const SignUpPage = ({
         <>
           <div className="authenticationHeader">
             <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-            <div className="authenticationLink" onClick={clearErrorRequest}>
+            <div className="authenticationLink" onClick={clearErrorRequest} role="link" onKeyUp={() => null} tabIndex={0}>
               <Link to="/signInPage">Log in instead</Link>
             </div>
           </div>
