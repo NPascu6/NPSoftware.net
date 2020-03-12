@@ -1,9 +1,9 @@
-import * as actions from "../Constants/staticStrings";
+import * as actions from '../Constants/staticStrings';
 
 export const addLoader = () => ({
-  type: actions.LOADING_TRUE
+  type: actions.LOADING_TRUE,
 });
 
 export const removeLoader = () => ({
-  type: actions.LOADING_FALSE
+  type: actions.LOADING_FALSE,
 });

@@ -1,46 +1,45 @@
-import React, { useRef, useEffect } from "react";
-import AuthenticationFormComponent from "../Components/authenticationForm";
-import { Link, useHistory } from "react-router-dom";
+import React, { useRef, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import AuthenticationFormComponent from '../Components/authenticationForm';
 import {
   signInActionRequest,
-  clearErrorRequest
-} from "../Actions/authenticationActions";
-import { addLoader, removeLoader } from "../Actions/utilitiesActions";
-import { SIGN_IN_ACTION_REQUEST } from "../Constants/authenticationActionNames";
-import { APPLICATION_NAME } from "../Constants/staticStrings";
-import { connect } from "react-redux";
-import "../Styles/AuthenticationScreen.css";
-import { useCookies } from "react-cookie";
-import LoadingScreen from "../Components/loadingComponent";
+  clearErrorRequest,
+} from '../Actions/authenticationActions';
+import { addLoader, removeLoader } from '../Actions/utilitiesActions';
+import { SIGN_IN_ACTION_REQUEST } from '../Constants/authenticationActionNames';
+import { APPLICATION_NAME } from '../Constants/staticStrings';
+import '../Styles/AuthenticationScreen.css';
+import { useCookies } from 'react-cookie';
+import LoadingScreen from '../Components/loadingComponent';
 
-const SignInPage = props => {
+const SignInPage = (props) => {
   const didMountRef = useRef(false);
   const history = useHistory();
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(['token']);
 
   const sigIn = (email, password) => {
-    let user = {
+    const user = {
       Email: email,
-      Password: password
+      Password: password,
     };
     props.signInActionRequest({ payload: user });
     props.addLoader();
   };
-  console.log(props);
 
   useEffect(() => {
     if (cookies.token != null) {
-      history.push("/account");
+      history.push('/account');
     }
   }, [cookies, history, props.token]);
 
   useEffect(() => {
     if (didMountRef.current) {
       if (props.token != null) {
-        setCookie("token", props.token);
+        setCookie('token', props.token);
         props.removeLoader();
-        props.token && history.push("/account");
-      } else if (props.errorMessage !== "") {
+        props.token && history.push('/account');
+      } else if (props.errorMessage !== '') {
         props.removeLoader();
         didMountRef.current = false;
       }
@@ -75,12 +74,12 @@ const SignInPage = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log(state);
   return {
     errorMessage: state.authentication.errorMessage,
     token: state.authentication.token,
-    loader: state.utitlitiesReducer.loader
+    loader: state.utitlitiesReducer.loader,
   };
 };
 
@@ -88,5 +87,5 @@ export default connect(mapStateToProps, {
   signInActionRequest,
   clearErrorRequest,
   addLoader,
-  removeLoader
+  removeLoader,
 })(SignInPage);

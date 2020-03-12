@@ -1,10 +1,10 @@
-import * as actions from "../Constants/userManagementActionNames";
+import * as actions from '../Constants/userManagementActionNames';
 
-export const addUserDetailsRequest = action => ({
+export const addUserDetailsRequest = (action) => ({
   type: actions.ADD_USER_DETAILS_REQUEST,
-  payload: action.payload
+  payload: action.payload,
 });
 
 export const getUserDetailsRequest = () => ({
-  type: actions.GET_USER_DETAILS_REQUEST
+  type: actions.GET_USER_DETAILS_REQUEST,
 });

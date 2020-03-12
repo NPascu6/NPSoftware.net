@@ -2,13 +2,13 @@ import {
   GET_USER_DETAILS_REQUEST_SUCCESS,
   GET_USER_DETAILS_REQUEST_FAILED,
   ADD_USER_DETAILS_REQUEST_SUCCESS,
-  ADD_USER_DETAILS_REQUEST_FAILED
-} from "../Constants/userManagementActionNames";
+  ADD_USER_DETAILS_REQUEST_FAILED,
+} from '../Constants/userManagementActionNames';
 
 const initialState = {
-  errorMessage: "",
+  errorMessage: '',
   user: {},
-  added: false
+  added: false,
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -17,24 +17,24 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
-        errorMessage: ""
+        errorMessage: '',
       };
     case GET_USER_DETAILS_REQUEST_FAILED:
       return {
         ...state,
-        errorMessage: action.payload
+        errorMessage: action.payload,
       };
     case ADD_USER_DETAILS_REQUEST_SUCCESS:
       return {
         ...state,
         added: true,
-        user: action.payload
+        user: action.payload,
       };
     case ADD_USER_DETAILS_REQUEST_FAILED:
       return {
         ...state,
         user: {},
-        errorMessage: action.payload
+        errorMessage: action.payload,
       };
     default:
       return state;

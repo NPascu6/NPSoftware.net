@@ -1,15 +1,15 @@
 // Imports: Dependencies
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 // Imports: Reducers
-import authenticationReducer from "../Reducers/authenticationReducer";
-import userManagementReducer from "../Reducers/userManagementReducer";
-import utitlitiesReducer from "../Reducers/utilitiesReducer";
+import authenticationReducer from './authenticationReducer';
+import userManagementReducer from './userManagementReducer';
+import utitlitiesReducer from './utilitiesReducer';
 
 // Redux: Root Reducer
 const rootReducer = combineReducers({
   authentication: authenticationReducer,
   userManagement: userManagementReducer,
-  utitlitiesReducer: utitlitiesReducer
+  utitlitiesReducer,
 });
 // Exports
 export default rootReducer;

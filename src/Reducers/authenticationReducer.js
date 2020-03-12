@@ -5,12 +5,12 @@ import {
   SIGN_UP_ACTION_FAILED,
   LOG_OUT_ACTION_SUCCESS,
   SET_TOKEN,
-  CLEAR_ERROR
-} from "../Constants/authenticationActionNames";
+  CLEAR_ERROR,
+} from '../Constants/authenticationActionNames';
 
 const initialState = {
-  errorMessage: "",
-  token: null
+  errorMessage: '',
+  token: null,
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -20,43 +20,42 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         loggedIn: true,
         token: action.payload.user.refreshToken,
-        errorMessage: ""
+        errorMessage: '',
       };
     case SIGN_UP_ACTION_SUCCESS:
       return {
         ...state,
         loggedIn: true,
         token: action.payload.user.refreshToken,
-        errorMessage: ""
+        errorMessage: '',
       };
     case SIGN_IN_ACTION_FAILED:
       return {
         ...state,
         errorMessage: action.payload,
-        token: null
+        token: null,
       };
     case SIGN_UP_ACTION_FAILED:
-      debugger
       return {
         ...state,
         errorMessage: action.payload,
-        token: null
+        token: null,
       };
     case LOG_OUT_ACTION_SUCCESS:
       return {
         ...state,
         token: null,
-        errorMessage: ""
+        errorMessage: '',
       };
     case SET_TOKEN:
       return {
         ...state,
-        token: action.payload
+        token: action.payload,
       };
     case CLEAR_ERROR:
       return {
         ...state,
-        errorMessage: ""
+        errorMessage: '',
       };
     default:
       return state;

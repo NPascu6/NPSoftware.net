@@ -12,9 +12,7 @@ const signUpAsync = async (user) => {
 };
 
 const signInAsync = async (user) => {
-  const token = await firebaseService
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password);
+  const token = await firebaseService.auth().signInWithEmailAndPassword(user.email, user.password);
   return token;
 };
 

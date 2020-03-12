@@ -1,31 +1,31 @@
-import React, { useEffect } from "react";
-import AuthenticationFormComponent from "../Components/authenticationForm";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import AuthenticationFormComponent from '../Components/authenticationForm';
 import {
   signUpActionRequest,
-  clearErrorRequest
-} from "../Actions/authenticationActions";
-import { SIGN_UP_ACTION_REQUEST } from "../Constants/authenticationActionNames";
-import { APPLICATION_NAME } from "../Constants/staticStrings";
-import { connect } from "react-redux";
-import "../Styles/AuthenticationScreen.css";
-import { useCookies } from "react-cookie";
+  clearErrorRequest,
+} from '../Actions/authenticationActions';
+import { SIGN_UP_ACTION_REQUEST } from '../Constants/authenticationActionNames';
+import { APPLICATION_NAME } from '../Constants/staticStrings';
+import '../Styles/AuthenticationScreen.css';
+import { useCookies } from 'react-cookie';
 
-const SignUpPage = props => {
+const SignUpPage = (props) => {
   const history = useHistory();
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies(['token']);
 
   const signUp = (email, password) => {
-    let user = {
+    const user = {
       Email: email,
-      Password: password
+      Password: password,
     };
     props.signUpActionRequest({ payload: user });
   };
 
   useEffect(() => {
     if (cookies.token != null) {
-      history.push("/account");
+      history.push('/account');
     }
   }, [cookies, cookies.token, history]);
 
@@ -46,14 +46,12 @@ const SignUpPage = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    errorMessage: state.authentication.errorMessage,
-    token: state.authentication.token
-  };
-};
+const mapStateToProps = (state) => ({
+  errorMessage: state.authentication.errorMessage,
+  token: state.authentication.token,
+});
 
 export default connect(mapStateToProps, {
   signUpActionRequest,
-  clearErrorRequest
+  clearErrorRequest,
 })(SignUpPage);

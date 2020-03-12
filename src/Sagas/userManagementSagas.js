@@ -1,44 +1,41 @@
-import { takeEvery, fork, call, put } from "redux-saga/effects";
-import * as actions from "../Constants/userManagementActionNames";
-import firebaseService from "../API/firebaseConfig";
+import {
+  takeEvery, fork, call, put,
+} from 'redux-saga/effects';
+import * as actions from '../Constants/userManagementActionNames';
+import firebaseService from '../API/firebaseConfig';
 
-const addUserDetails = async action => {
-  let details = action.payload;
+const addUserDetails = async (action) => {
+  const details = action.payload;
   return firebaseService
     .database()
-    .ref("/userList")
+    .ref('/userList')
     .set(details)
-    .then(() => {
-      return "Added";
-    });
+    .then(() => 'Added');
 };
 
-const getUser = async () => {
-  return await firebaseService
-    .database()
-    .ref("/userList")
-    .once("value", snapshot => {
-      return snapshot;
-    });
-};
+const getUser = () => firebaseService
+  .database()
+  .ref('/userList')
+  .once('value', (snapshot) => snapshot);
 
 function* addDetails(user) {
-  let response = yield addUserDetails(user);
+  const response = yield addUserDetails(user);
   console.log(response);
   yield put({
     type: actions.ADD_USER_DETAILS_REQUEST_SUCCESS,
-    payload: user.payload
+    payload: user.payload,
   });
 }
 
 function* getUserDetails() {
-  let details = yield getUser();
+  const details = yield getUser();
 
-  if (details.length !== 0)
+  if (details.length !== 0) {
     yield put({
       type: actions.GET_USER_DETAILS_REQUEST_SUCCESS,
-      payload: details.val()
+      payload: details.val(),
     });
+  }
 }
 
 function* watchAddUserDetails() {
@@ -51,7 +48,7 @@ function* watchGetUserDetails() {
 
 const userManagementSaga = [
   fork(watchAddUserDetails),
-  fork(watchGetUserDetails)
+  fork(watchGetUserDetails),
 ];
 
 export default userManagementSaga;
