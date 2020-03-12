@@ -34,18 +34,21 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         errorMessage: action.payload,
         token: null,
+        loggedIn: false,
       };
     case SIGN_UP_ACTION_FAILED:
       return {
         ...state,
         errorMessage: action.payload,
         token: null,
+        loggedIn: false,
       };
     case LOG_OUT_ACTION_SUCCESS:
       return {
         ...state,
-        token: null,
-        errorMessage: '',
+        token: action.payload,
+        errorMessage: action.payload,
+        loggedIn: action.payload,
       };
     case SET_TOKEN:
       return {
@@ -56,6 +59,8 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         errorMessage: '',
+        loggedIn: false,
+        token: null,
       };
     default:
       return state;

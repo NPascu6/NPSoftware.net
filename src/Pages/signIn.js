@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useCookies } from 'react-cookie';
+import PropTypes from 'prop-types'; // ES6
 import AuthenticationFormComponent from '../Components/authenticationForm';
 import {
   signInActionRequest,
@@ -11,21 +12,23 @@ import { addLoader, removeLoader } from '../Actions/utilitiesActions';
 import { SIGN_IN_ACTION_REQUEST } from '../Constants/authenticationActionNames';
 import { APPLICATION_NAME } from '../Constants/staticStrings';
 import '../Styles/AuthenticationScreen.css';
-
 import LoadingScreen from '../Components/loadingComponent';
 
-const SignInPage = (props) => {
+const SignInPage = ({
+  // eslint-disable-next-line no-shadow
+  addLoader, removeLoader, signInActionRequest, token, errorMessage, loader, clearErrorRequest,
+}) => {
   const didMountRef = useRef(false);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(['token']);
 
   const sigIn = (email, password) => {
+    addLoader();
     const user = {
       Email: email,
       Password: password,
     };
-    props.signInActionRequest({ payload: user });
-    props.addLoader();
+    signInActionRequest({ payload: user });
   };
 
   useEffect(() => {
@@ -36,12 +39,12 @@ const SignInPage = (props) => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      if (props.token != null) {
-        setCookie('token', props.token);
-        props.removeLoader();
-        props.token && history.push('/account');
-      } else if (props.errorMessage !== '') {
-        props.removeLoader();
+      if (token != null) {
+        setCookie('token', token);
+        removeLoader();
+        token && history.push('/account');
+      } if (errorMessage !== '') {
+        removeLoader();
         didMountRef.current = false;
       }
     } else didMountRef.current = true;
@@ -49,30 +52,45 @@ const SignInPage = (props) => {
 
   return (
     <>
-      <div>
-        {props.loader ? (
-          <LoadingScreen />
-        ) : (
-          <>
-            <div className="authenticationHeader">
-              <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-              <div
-                className="authenticationLink"
-                onClick={props.clearErrorRequest}
-              >
-                <Link to="/">Sign up instead</Link>
-              </div>
+      {loader ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <div className="authenticationHeader">
+            <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
+            <div
+              className="authenticationLink"
+              onClick={clearErrorRequest}
+              onKeyUp={() => null}
+              role="button"
+              tabIndex="0"
+            >
+              <Link to="/">Sign up instead</Link>
             </div>
-            <AuthenticationFormComponent
-              type={SIGN_IN_ACTION_REQUEST}
-              action={sigIn}
-              errorMessage={props.errorMessage}
-            />
-          </>
-        )}
-      </div>
+          </div>
+          <AuthenticationFormComponent
+            type={SIGN_IN_ACTION_REQUEST}
+            action={sigIn}
+            errorMessage={errorMessage}
+          />
+        </>
+      )}
     </>
   );
+};
+
+SignInPage.propTypes = {
+  token: PropTypes.string,
+  loader: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  addLoader: PropTypes.func.isRequired,
+  removeLoader: PropTypes.func.isRequired,
+  clearErrorRequest: PropTypes.func.isRequired,
+  signInActionRequest: PropTypes.func.isRequired,
+};
+
+SignInPage.defaultProps = {
+  token: '',
 };
 
 const mapStateToProps = (state) => {

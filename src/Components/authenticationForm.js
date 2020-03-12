@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types'; // ES6
 import {
   SIGN_IN_BUTTON,
   SIGN_UP_BUTTON,
@@ -12,12 +13,14 @@ import {
 import '../Styles/AuthenticationForm.css';
 import svg from '../Assets/logo.svg';
 
-const AuthenticationFormComponent = (props) => {
+const AuthenticationFormComponent = ({ action, type, errorMessage }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const selectStyle = {
+    display: 'none',
+  };
   const submit = () => {
-    props.action(email, password);
+    action(email, password);
   };
 
   return (
@@ -26,12 +29,15 @@ const AuthenticationFormComponent = (props) => {
         <img alt="" src={svg} />
       </div>
       <div className="authenticationFormHeader">
-        {props.type === SIGN_UP_ACTION_REQUEST
+        {type === SIGN_UP_ACTION_REQUEST
           ? SIGNUPSCREEN_HEADER
           : LOGINSCREEN_HEADER}
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">Email:</label>
+        <label name="email" className="authenticationLabel" htmlFor="emailSelect">
+          Email:
+          <select label="emailSelect" style={{ display: 'none' }} />
+        </label>
         <TextField
           className="authenticationInput"
           value={email}
@@ -41,7 +47,10 @@ const AuthenticationFormComponent = (props) => {
         />
       </div>
       <div className="authenticationRowContainer">
-        <label className="authenticationLabel">Password:</label>
+        <label name="password" className="authenticationLabel" htmlFor="passwordSelect">
+          Password:
+          <select label="passwordSelect" style={selectStyle} />
+        </label>
         <TextField
           className="authenticationInput"
           value={password}
@@ -51,15 +60,21 @@ const AuthenticationFormComponent = (props) => {
         />
       </div>
       <div>
-        <button className="authenticationButton" onClick={() => submit()}>
-          {props.type === SIGN_UP_ACTION_REQUEST
+        <button type="submit" className="authenticationButton" onClick={() => submit()}>
+          {type === SIGN_UP_ACTION_REQUEST
             ? SIGN_UP_BUTTON
             : SIGN_IN_BUTTON}
         </button>
       </div>
-      <div className="authenticationErrorMessage">{props.errorMessage}</div>
+      <div className="authenticationErrorMessage">{errorMessage}</div>
     </div>
   );
+};
+
+AuthenticationFormComponent.propTypes = {
+  action: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default AuthenticationFormComponent;

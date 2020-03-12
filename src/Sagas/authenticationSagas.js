@@ -21,7 +21,7 @@ function* setToken(token) {
 }
 
 function* logout() {
-  yield put({ type: actions.LOG_OUT_ACTION_SUCCESS });
+  yield put({ type: actions.LOG_OUT_ACTION_SUCCESS, payload: null });
 }
 
 function* signin(action) {

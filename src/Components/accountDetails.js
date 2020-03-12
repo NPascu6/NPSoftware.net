@@ -19,9 +19,8 @@ const AccountDetails = (props) => {
   };
 
   return (
-    <div className="authenticationContainer">
+    <>
       <div className="authenticationIcon">{}</div>
-      <div className="authenticationFormHeader">Account</div>
       <div className="authenticationRowContainer">
         <label className="authenticationLabel">Email:</label>
         <TextField
@@ -67,7 +66,8 @@ const AccountDetails = (props) => {
         </button>
       </div>
       <div className="authenticationErrorMessage">{props.errorMessage}</div>
-    </div>
+    </>
+
   );
 };
 

@@ -4,20 +4,17 @@ import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { logOutActionRequest } from '../Actions/authenticationActions';
 
-const LogOutButton = (props) => {
+const LogOutButton = () => {
+  // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const history = useHistory();
   const logOut = () => {
     removeCookie('token');
-    props.logOutActionRequest();
+    logOutActionRequest();
     history.push('/');
   };
 
-  return (
-    <>
-      <button onClick={logOut}>Log out</button>
-    </>
-  );
+  return <button type="button" onClick={logOut} label="Log out" value="Log Out" />;
 };
 
 const mapStateToProps = (state) => ({

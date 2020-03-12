@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import PropTypes from 'prop-types'; // ES6
 import {
   getUserDetailsRequest,
   addUserDetailsRequest,
@@ -10,11 +11,17 @@ import { addLoader, removeLoader } from '../Actions/utilitiesActions';
 import AccountDetails from '../Components/accountDetails';
 import LogOutButton from '../Components/logoutButton';
 import LoadingScreen from '../Components/loadingComponent';
+import '../Styles/AuthenticationForm.css';
 
-const AccountPage = (props) => {
+const AccountPage = ({
+  // eslint-disable-next-line no-shadow
+  added, loader, accountDetails, addLoader, removeLoader, getUserDetailsRequest, addUserDetailsRequest,
+}) => {
   const history = useHistory();
+  // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie] = useCookies(['token']);
-  const [accountDetails, setAccountDetails] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [details, setDetails] = useState({});
   const didMountRef = useRef(false);
 
   useEffect(() => {
@@ -22,45 +29,56 @@ const AccountPage = (props) => {
     if (token == null) {
       history.push('/');
     }
-    debugger;
-    if (props.added) {
-      debugger;
-      props.removeLoader();
+    if (added) {
+      removeLoader();
     }
-  }, [cookies.token, history, props.added]);
+  }, [added, cookies, history, removeLoader]);
 
   useEffect(() => {
-    props.getUserDetailsRequest();
-    props.addLoader();
-  }, []);
+    getUserDetailsRequest();
+    addLoader();
+  }, [getUserDetailsRequest, addLoader]);
 
   useEffect(() => {
-    debugger;
     if (didMountRef.current) {
-      if (props.accountDetails) {
-        setAccountDetails(props.accountDetails);
-        props.removeLoader();
+      if (accountDetails) {
+        setDetails(accountDetails);
+        removeLoader();
       }
     } else didMountRef.current = true;
-  }, [props.accountDetails]);
+  }, [accountDetails, setDetails, removeLoader]);
 
   const save = (user) => {
-    props.addUserDetailsRequest({ payload: user });
-    props.addLoader();
+    addUserDetailsRequest({ payload: user });
+    addLoader();
   };
 
   return (
     <>
-      {props.loader ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          <AccountDetails accountDetails={accountDetails} action={save} />
-          <LogOutButton />
-        </>
-      )}
+      <div className="authenticationContainer">
+
+        <div className="authenticationFormHeader">Account</div>
+        {loader ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <AccountDetails accountDetails={accountDetails} action={save} />
+            <LogOutButton />
+          </>
+        )}
+      </div>
+
     </>
   );
+};
+
+AccountPage.propTypes = {
+  added: PropTypes.bool.isRequired,
+  loader: PropTypes.bool.isRequired,
+  addLoader: PropTypes.func.isRequired,
+  removeLoader: PropTypes.func.isRequired,
+  addUserDetailsRequest: PropTypes.func.isRequired,
+  getUserDetailsRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
