@@ -27,6 +27,7 @@ const SignInPage = props => {
     props.addLoader();
   };
   console.log(props);
+
   useEffect(() => {
     if (cookies.token != null) {
       history.push("/account");
@@ -35,35 +36,41 @@ const SignInPage = props => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      if (props.token) {
+      if (props.token != null) {
         setCookie("token", props.token);
-        history.push("/account");
+        props.removeLoader();
+        props.token && history.push("/account");
+      } else if (props.errorMessage !== "") {
+        props.removeLoader();
+        didMountRef.current = false;
       }
     } else didMountRef.current = true;
   });
 
   return (
     <>
-      {props.loader ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          <div className="authenticationHeader">
-            <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
-            <div
-              className="authenticationLink"
-              onClick={props.clearErrorRequest}
-            >
-              <Link to="/">Sign up instead</Link>
+      <div>
+        {props.loader ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <div className="authenticationHeader">
+              <div className="authenticationTopHeader">{APPLICATION_NAME}</div>
+              <div
+                className="authenticationLink"
+                onClick={props.clearErrorRequest}
+              >
+                <Link to="/">Sign up instead</Link>
+              </div>
             </div>
-          </div>
-          <AuthenticationFormComponent
-            type={SIGN_IN_ACTION_REQUEST}
-            action={sigIn}
-            errorMessage={props.errorMessage}
-          />
-        </>
-      )}
+            <AuthenticationFormComponent
+              type={SIGN_IN_ACTION_REQUEST}
+              action={sigIn}
+              errorMessage={props.errorMessage}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 };

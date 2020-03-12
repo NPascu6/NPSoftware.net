@@ -36,6 +36,7 @@ const authenticationReducer = (state = initialState, action) => {
         token: null
       };
     case SIGN_UP_ACTION_FAILED:
+      debugger
       return {
         ...state,
         errorMessage: action.payload,
