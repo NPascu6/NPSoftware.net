@@ -8,6 +8,7 @@ import {
   signInActionRequest,
   clearErrorRequest,
 } from '../Actions/authenticationActions';
+import { getUserDetailsRequest } from '../Actions/userManagementActions';
 import { addLoader, removeLoader } from '../Actions/utilitiesActions';
 import { SIGN_IN_ACTION_REQUEST } from '../Constants/authenticationActionNames';
 import { APPLICATION_NAME } from '../Constants/staticStrings';
@@ -16,7 +17,18 @@ import LoadingScreen from '../Components/loadingComponent';
 
 const SignInPage = ({
   // eslint-disable-next-line no-shadow
-  addLoader, removeLoader, signInActionRequest, token, errorMessage, loader, clearErrorRequest,
+  addLoader,
+  // eslint-disable-next-line no-shadow
+  removeLoader,
+  // eslint-disable-next-line no-shadow
+  signInActionRequest,
+  token,
+  errorMessage,
+  loader,
+  // eslint-disable-next-line no-shadow
+  clearErrorRequest,
+  // eslint-disable-next-line no-shadow
+  getUserDetailsRequest,
 }) => {
   const didMountRef = useRef(false);
   const history = useHistory();
@@ -39,11 +51,12 @@ const SignInPage = ({
 
   useEffect(() => {
     if (didMountRef.current) {
-      removeLoader();
       if (token != null) {
         setCookie('token', token);
+        getUserDetailsRequest();
+        clearErrorRequest();
         if (token)history.push('/account');
-      } if (errorMessage !== '') {
+      } else if (errorMessage !== '') {
         removeLoader();
         didMountRef.current = false;
       }
@@ -87,6 +100,7 @@ SignInPage.propTypes = {
   removeLoader: PropTypes.func.isRequired,
   clearErrorRequest: PropTypes.func.isRequired,
   signInActionRequest: PropTypes.func.isRequired,
+  getUserDetailsRequest: PropTypes.func.isRequired,
 };
 
 SignInPage.defaultProps = {
@@ -104,4 +118,5 @@ export default connect(mapStateToProps, {
   clearErrorRequest,
   addLoader,
   removeLoader,
+  getUserDetailsRequest,
 })(SignInPage);

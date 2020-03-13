@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import '../Styles/AuthenticationForm.css';
 import PropTypes from 'prop-types'; // ES6
@@ -23,6 +23,16 @@ const AccountDetails = ({
     action(newDetails);
   };
 
+  useEffect(() => {
+    setAddres(accountDetails.addres);
+    setEmail(accountDetails.email);
+    setPhoneNumber(accountDetails.phoneNumber);
+    setUserName(accountDetails.userName);
+  }, [accountDetails.addres,
+    accountDetails.email,
+    accountDetails.phoneNumber,
+    accountDetails.userName]);
+
   return (
     <>
       <div className="authenticationIcon">{}</div>
@@ -37,7 +47,6 @@ const AccountDetails = ({
           onChange={(e) => setEmail(e.target.value)}
           name="email"
           type="email"
-          placeholder={accountDetails.Email}
         />
       </div>
       <div className="authenticationRowContainer">
@@ -50,7 +59,6 @@ const AccountDetails = ({
           value={addres}
           onChange={(e) => setAddres(e.target.value)}
           name="address"
-          placeholder={accountDetails.Addres}
         />
       </div>
       <div className="authenticationRowContainer">
@@ -64,7 +72,6 @@ const AccountDetails = ({
           onChange={(e) => setPhoneNumber(e.target.value)}
           name="phoneNumber"
           type="phoneNumber"
-          placeholder={accountDetails.PhoneNumber}
         />
       </div>
       <div className="authenticationRowContainer">
@@ -76,7 +83,6 @@ const AccountDetails = ({
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           name="userName"
-          placeholder={accountDetails.UserName}
         />
       </div>
       <div>
@@ -92,10 +98,10 @@ const AccountDetails = ({
 
 AccountDetails.propTypes = {
   accountDetails: PropTypes.shape({
-    Addres: PropTypes.string.isRequired,
-    PhoneNumber: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    UserName: PropTypes.string.isRequired,
+    addres: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
   }),
   errorMessage: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,

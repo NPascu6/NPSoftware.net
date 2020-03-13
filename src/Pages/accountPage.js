@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import PropTypes, { object } from 'prop-types'; // ES6
+import PropTypes from 'prop-types'; // ES6
 import {
   getUserDetailsRequest,
   addUserDetailsRequest,
@@ -14,8 +14,17 @@ import LoadingScreen from '../Components/loadingComponent';
 import '../Styles/AuthenticationForm.css';
 
 const AccountPage = ({
+  added,
+  loader,
+  accountDetails,
   // eslint-disable-next-line no-shadow
-  added, loader, accountDetails, addLoader, removeLoader, getUserDetailsRequest, addUserDetailsRequest,
+  addLoader,
+  // eslint-disable-next-line no-shadow
+  removeLoader,
+  // eslint-disable-next-line no-shadow
+  addUserDetailsRequest,
+  // eslint-disable-next-line no-shadow
+  getUserDetailsRequest,
 }) => {
   const history = useHistory();
   // eslint-disable-next-line no-unused-vars
@@ -25,18 +34,15 @@ const AccountPage = ({
   const didMountRef = useRef(false);
 
   useEffect(() => {
+    addLoader();
+    getUserDetailsRequest();
     const { token } = cookies;
     if (token == null) {
       history.push('/');
     } else if (added) {
       removeLoader();
     }
-  }, [added, cookies, history, removeLoader, cookies.token]);
-
-  useEffect(() => {
-    const { token } = cookies;
-    if (token) { getUserDetailsRequest(); addLoader(); }
-  }, [getUserDetailsRequest, addLoader]);
+  }, [added, cookies, history, removeLoader, cookies.token, addLoader, getUserDetailsRequest]);
 
   useEffect(() => {
     if (didMountRef.current) {
@@ -44,7 +50,9 @@ const AccountPage = ({
         setDetails(accountDetails);
         removeLoader();
       }
-    } else didMountRef.current = true;
+    } else {
+      didMountRef.current = true;
+    }
   }, [accountDetails, setDetails, removeLoader]);
 
   const save = (user) => {
@@ -55,7 +63,6 @@ const AccountPage = ({
   return (
     <>
       <div className="authenticationContainer">
-
         <div className="authenticationFormHeader">Account</div>
         {loader ? (
           <LoadingScreen />
@@ -78,6 +85,16 @@ AccountPage.propTypes = {
   removeLoader: PropTypes.func.isRequired,
   addUserDetailsRequest: PropTypes.func.isRequired,
   getUserDetailsRequest: PropTypes.func.isRequired,
+  accountDetails: PropTypes.shape({
+    addres: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+  }),
+};
+
+AccountPage.defaultProps = {
+  accountDetails: {},
 };
 
 const mapStateToProps = (state) => ({

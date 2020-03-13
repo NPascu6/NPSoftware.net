@@ -9,14 +9,26 @@ import {
   signUpActionRequest,
   clearErrorRequest,
 } from '../Actions/authenticationActions';
+import { getUserDetailsRequest } from '../Actions/userManagementActions';
 import { SIGN_UP_ACTION_REQUEST } from '../Constants/authenticationActionNames';
 import { APPLICATION_NAME } from '../Constants/staticStrings';
 import '../Styles/AuthenticationScreen.css';
 import LoadingScreen from '../Components/loadingComponent';
 
 const SignUpPage = ({
+  loader,
   // eslint-disable-next-line no-shadow
-  loader, addLoader, removeLoader, errorMessage, clearErrorRequest, signUpActionRequest, token,
+  addLoader,
+  // eslint-disable-next-line no-shadow
+  removeLoader,
+  errorMessage,
+  // eslint-disable-next-line no-shadow
+  clearErrorRequest,
+  // eslint-disable-next-line no-shadow
+  signUpActionRequest,
+  token,
+  // eslint-disable-next-line no-shadow
+  getUserDetailsRequest,
 }) => {
   const history = useHistory();
   const didMountRef = useRef(false);
@@ -41,8 +53,9 @@ const SignUpPage = ({
   useEffect(() => {
     if (didMountRef.current) {
       if (token != null) {
-        removeLoader();
         setCookie('token', token);
+        getUserDetailsRequest();
+        clearErrorRequest();
         if (token)history.push('/account');
       } else if (errorMessage !== '') {
         removeLoader();
@@ -82,6 +95,7 @@ SignUpPage.propTypes = {
   removeLoader: PropTypes.func.isRequired,
   clearErrorRequest: PropTypes.func.isRequired,
   signUpActionRequest: PropTypes.func.isRequired,
+  getUserDetailsRequest: PropTypes.func.isRequired,
 };
 
 SignUpPage.defaultProps = {
@@ -99,4 +113,5 @@ export default connect(mapStateToProps, {
   clearErrorRequest,
   addLoader,
   removeLoader,
+  getUserDetailsRequest,
 })(SignUpPage);
